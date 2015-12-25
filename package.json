@@ -1,0 +1,22 @@
+{
+  "name": "simpler-lexer",
+  "version": "0.1.0",
+  "description": "A simple lexer that parses strings into tokens using user-defined regular expressions",
+  "keywords": [
+    "simple", "lexer", "parser", "token", "tokens", "tokenizer", "regexp", "regular", "expressions"
+  ],
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bananushka/simpler-lexer.git"
+  },
+  "author": "bananushka",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/bananushka/simpler-lexer/issues"
+  },
+  "homepage": "https://github.com/bananushka/simpler-lexer#readme"
+}
