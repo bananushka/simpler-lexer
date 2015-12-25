@@ -32,6 +32,7 @@ The tokenizing rules are written in following format:
   {
     name: 'name of the rule that matched the token',
     value: '(longest) lexeme that matched the token'
+  }
 ]
 ```
 
