@@ -44,19 +44,66 @@ describe('Lexer', () => {
         {type: 'letter', value: 'h'},
       ]
     },
+    {
+      title: 'should find longest when two rules match',
+      rules: [
+        {name: 'digit', rule: /[0-9]/},
+        {name: 'number', rule: /[1-9][0-9]*/},
+      ],
+      input: '12',
+      expected: [
+        {type: 'number', value: '12'},
+      ]
+    },
+    {
+      title: 'unless told specifically not to find longest',
+      rules: [
+        {name: 'digit', rule: /[0-9]/},
+        {name: 'number', rule: /[1-9][0-9]*/},
+      ],
+      input: '12',
+      expected: [
+        {type: 'digit', value: '1'},
+        {type: 'digit', value: '2'},
+      ],
+      options: {findLongest: false}
+    },
+    {
+      title: 'should find first of longest when two rules match',
+      rules: [
+        {name: 'integer', rule: /[+-]?[1-9][0-9]*/},
+        {name: 'number', rule: /[1-9][0-9]*/},
+      ],
+      input: '12',
+      expected: [
+        {type: 'integer', value: '12'},
+      ]
+    },
+    {
+      title: 'unless told specifically to match last',
+      rules: [
+        {name: 'integer', rule: /[+-]?[1-9][0-9]*/},
+        {name: 'number', rule: /[1-9][0-9]*/},
+      ],
+      input: '12',
+      expected: [
+        {type: 'number', value: '12'},
+      ],
+      options: {lastOfLongest: true}
+    },
   ];
   describe('#tokenize()', () => {
-    for (let {title, rules, input, expected} of testCases) {
+    for (let {title, rules, input, expected, options = {}} of testCases) {
       it(title, () => {
-        assert.deepEqual((new Lexer(rules)).tokenize(input), expected);
+        assert.deepEqual((new Lexer(rules)).tokenize(input, options), expected);
       });
     }
   });
 
   describe('.tokenize()', () => {
     it('should work the same as a Lexer object', () => {
-        for (let {_, rules, input, expected} of testCases) {
-          assert.deepEqual(Lexer.tokenize(rules, input), expected);
+        for (let {_, rules, input, expected, options = {}} of testCases) {
+          assert.deepEqual(Lexer.tokenize(rules, input, options), expected);
         }
     });
   });

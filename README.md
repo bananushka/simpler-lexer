@@ -54,3 +54,12 @@ console.log(lexer.tokenize('1gN4h'));
   {type: 'letter', value: 'h'},
 ]
 ```
+
+### Additional options
+The `tokenize()` method (and static method) can be passed additional options:
+```js
+{
+  findLongest: whether to match the longest token or just the first (by default true),
+  lastOfLongest: when matching the longest token, whether to use the first match or last (by default false)
+}
+```
