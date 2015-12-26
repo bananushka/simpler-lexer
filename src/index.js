@@ -1,5 +1,3 @@
-import 'babel-polyfill';
-
 export default class Lexer {
   constructor(rules) {
     this.rules = rules;
