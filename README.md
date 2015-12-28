@@ -1,6 +1,12 @@
 # simpler-lexer
 A simple lexer that parses strings into tokens using user-defined regular expressions
 
+## Installation
+Simply install via NPM:
+```sh
+npm install simpler-lexer
+```
+
 ## Usage
 All examples are written in ES-2015.
 
