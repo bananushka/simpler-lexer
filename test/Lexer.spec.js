@@ -98,6 +98,18 @@ describe('Lexer', () => {
         assert.deepEqual((new Lexer(rules)).tokenize(input, options), expected);
       });
     }
+    it('should throw an error when it encounters unrecognized string', () => {
+      assert.throws(() => {
+        (new Lexer([])).tokenize('a');
+      });
+    });
+    it('should not throw, when explicity told not to', () => {
+      assert.doesNotThrow(() => {
+        assert.deepEqual((new Lexer([])).tokenize('a', {
+          passThroughUnrecognized: true
+        }), [{type: 'a', value: 'a'}]);
+      });
+    });
   });
 
   describe('.tokenize()', () => {

@@ -7,14 +7,19 @@ export default class Lexer {
     return this.constructor.tokenize(this.rules, ...args);
   }
 
-  static tokenize(rules, expression, {findLongest = true, lastOfLongest = false} = {}) {
+  static tokenize(rules, expression, {
+                                        findLongest = true,
+                                        lastOfLongest = false,
+                                        passThroughUnrecognized = false
+                                     } = {}) {
     let tokens = [];
     while (expression.trim().length > 0) {
-      let longestResult = '', longestResultName;
+      let longestResult = '', longestResultName, found = false;
       for (let {name, rule} of rules) {
         rule = new RegExp('^' + rule.source, rule.flags);
         let result = rule.exec(expression);
         if (!!result) {
+          found = true;
           if (findLongest) {
             if (lastOfLongest && result[0].length >= longestResult.length) {
               longestResult = result[0];
@@ -30,9 +35,17 @@ export default class Lexer {
           }
         }
       }
-      if (findLongest) {
+      if (findLongest && found) {
         tokens.push({type: longestResultName, value: longestResult});
         expression = expression.substr(longestResult.length).trim();
+      }
+      if (!found) {
+        if (passThroughUnrecognized) {
+          tokens.push({type: expression[0], value: expression[0]});
+          expression = expression.substr(1).trim();
+        } else {
+          throw new Error('Could not recognize string');
+        }
       }
     }
     return tokens;
